@@ -39,7 +39,10 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('resize', resizeCanvas);
 
     function drawGrid() {
-        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        ctx.save();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.restore();
 
         ctx.save();
 
@@ -300,6 +303,9 @@ document.addEventListener('DOMContentLoaded', function () {
         selectedMode = document.querySelector('input[name="mode"]:checked').value; // Get selected mode
         console.log(selectedMode);
 
+        clearers = []
+        hammers = []
+        arters = []
         players.forEach(player => {
             const color = getRandomColor();
             if (player.clearer != '-') {
