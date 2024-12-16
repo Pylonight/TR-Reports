@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>400x400 Grid Map</title>
+    <style>
+        body {
+            display: flex;
+            overflow: hidden; /* Hide scrollbars */
+            margin: 0;        /* Remove default margins */
+        }
+
+        #options {
+            width: 20%;
+            background-color: #f0f0f0;
+            padding: 10px;
+        }
+        #canvas-container { /* added styles to the container */
+            width: 80%;
+            height: 100vh; /* Ensure container takes full viewport height */
+            position: relative; /* For absolute positioning of tooltip */
+        }
+
+        canvas {
+            width: 100%;     /* Canvas fills its container */
+            height: 100%;    /* Canvas fills its container */
+            border: 1px solid black;
+            display: block; /* Prevent default canvas margin */
+
+        }
+
+        #tooltip {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none; /* Prevent tooltip from interfering with mouse events on canvas */
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.2s ease; /* Smooth fade-in/out */
+        }
+
+        #options input[type="radio"] {
+            margin-right: 5px;
+        }
+        #options textarea {
+            width: calc(100% - 20px); /* Adjust textarea width to take up most of the space */
+            height: 150px;           /* Adjust textarea height */
+            margin-top: 10px;
+            padding: 5px;
+            box-sizing: border-box;   /* Include padding and border in element width */
+        }
+    </style>
+</head>
+<body>
+    <div id="options">
+        <h2>Options</h2>
+        <label><input type="radio" name="mode" value="1" checked> Clear</label><br>
+        <label><input type="radio" name="mode" value="2"> Hammer</label><br>
+        <label><input type="radio" name="mode" value="3"> Artefact</label><br>
+        <label><input type="radio" name="mode" value="4"> All (UNIMPLEMENTED)</label><br>
+        <textarea id="csvInput" placeholder="Paste CSV data here..."></textarea>
+        <button id="visualizeButton">Visualize</button>
+    </div>
+    <div id="canvas-container">
+        <div id="tooltip"></div>
+        <canvas id="gridCanvas"></canvas>
+    </div>
+
+    <script src="grid.js"></script>
+</body>
+</html>
