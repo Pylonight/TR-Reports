@@ -50,6 +50,21 @@
             padding: 5px;
             box-sizing: border-box;   /* Include padding and border in element width */
         }
+
+        #opsListContainer { /* added a container for opsList */
+            overflow-y: auto; /* Add vertical scrollbar to this container only */
+            max-height: 500px; /* Set a maximum height for the scrollable area */
+        }
+
+        #opsList { /* styles for the table */
+            width: 100%;
+            border-collapse: collapse;
+        }
+        #opsList th, #opsList td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -61,6 +76,15 @@
         <label><input type="radio" name="mode" value="4"> All (UNIMPLEMENTED)</label><br>
         <textarea id="csvInput" placeholder="Paste CSV data here..."></textarea>
         <button id="visualizeButton">Visualize</button>
+
+        <div id="opsListContainer">
+            <table id="opsList">
+                <tr>
+                    <th>Player</th>
+                    <th>X|Y</th>
+                </tr>
+            </table>
+        </div>
     </div>
     <div id="canvas-container">
         <div id="tooltip"></div>
