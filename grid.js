@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const mapWidth = gridSize * cellSize;
         const mapHeight = gridSize * cellSize;
 
-        if (newOffsetX >= 0 || newOffsetX + canvasWidth < mapWidth || newOffsetY >=0 || newOffsetY + canvasHeight < mapHeight  ) {
+        if (newOffsetX >= 0 || newOffsetX + canvasWidth < mapWidth || newOffsetY >= 0 || newOffsetY + canvasHeight < mapHeight  ) {
             offsetX = newOffsetX;
             offsetY = newOffsetY;
             dragStartX = e.clientX;
@@ -277,11 +277,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const mouseX = e.clientX - rect.left;
         const mouseY = e.clientY - rect.top;
     
-        const previousScale = cellSize/5;
+        const previousScale = cellSize / 5;
         const newScale = newCellSize / 5;
     
-        offsetX = mouseX - (mouseX - offsetX)* newScale/previousScale; // Correct offset calculation with scaling
-        offsetY = mouseY - (mouseY - offsetY)*newScale/previousScale;
+        offsetX = mouseX - (mouseX - offsetX) * newScale / previousScale; // Correct offset calculation with scaling
+        offsetY = mouseY - (mouseY - offsetY) * newScale / previousScale;
     
     
         cellSize = newCellSize // update cellsize at last so that above calculation based on old cellsize
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function () {
         arters = []
         players.forEach(player => {
             const color = getRandomColor();
-            if (player.clearer != '-') {
+            if (player.clear != '-') {
                 clearers.push({player: player.player, x: player.x, y: player.y, color: color});
             }
             if (player.hammer != '-') {
@@ -318,7 +318,55 @@ document.addEventListener('DOMContentLoaded', function () {
                 arters.push({player: player.player, x: player.x, y: player.y, color: color});
             }
         });
+
+        printOpsList(selectedMode);
         drawGrid();
+    }
+
+    function printOpsList(task) {
+        const opsList = document.getElementById('opsList');
+
+        while (opsList.rows.length > 1) {
+            opsList.deleteRow(1);
+        }
+
+        if (task == 1) {
+            clearers.forEach(player => {
+                const ops = document.createElement('tr');
+                const opsName = document.createElement('td');
+                opsName.appendChild(document.createTextNode(player.player));
+                const opsCoord = document.createElement('td');
+                opsCoord.appendChild(document.createTextNode(player.x + '|' + player.y));
+
+                ops.appendChild(opsName);
+                ops.appendChild(opsCoord);
+                opsList.appendChild(ops);
+            });
+        } else if (task == 2) {
+            hammers.forEach(player => {
+                const ops = document.createElement('tr');
+                const opsName = document.createElement('td');
+                opsName.appendChild(document.createTextNode(player.player));
+                const opsCoord = document.createElement('td');
+                opsCoord.appendChild(document.createTextNode(player.x + '|' + player.y));
+
+                ops.appendChild(opsName);
+                ops.appendChild(opsCoord);
+                opsList.appendChild(ops);
+            });
+        } else if (task == 3) {
+            arters.forEach(player => {
+                const ops = document.createElement('tr');
+                const opsName = document.createElement('td');
+                opsName.appendChild(document.createTextNode(player.player));
+                const opsCoord = document.createElement('td');
+                opsCoord.appendChild(document.createTextNode(player.x + '|' + player.y));
+
+                ops.appendChild(opsName);
+                ops.appendChild(opsCoord);
+                opsList.appendChild(ops);
+            });
+        }
     }
 
     function getRandomColor() {
