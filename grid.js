@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (player.hammer != '-') {
                 hammers.push({player: player.player, x: player.x, y: player.y, color: color});
             }
-            if (player.arter != '-') {
+            if (player.arte != '-') {
                 arters.push({player: player.player, x: player.x, y: player.y, color: color});
             }
         });
